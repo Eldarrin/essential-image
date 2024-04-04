@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: essential-protege
+  namespace: essential
+  labels:
+    app.kubernetes.io/name: essential-protege
+    app.kubernetes.io/component: backend
+spec:
+  type: NodePort
+  ports:
+    - port: 31100
+      targetPort: 31100
+      name: rmi
+      nodePort: 31100
+    - port: 31200
+      targetPort: 31200
+      name: protege
+      nodePort: 31200
+  selector:
+    app.kubernetes.io/name: essential-protege
+    app.kubernetes.io/component: backend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: essential-viewer
+  namespace: essential
+  labels:
+    app.kubernetes.io/name: essential-viewer
+    app.kubernetes.io/component: backend
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+      nodePort: 30080
+    - port: 8181
+      targetPort: 8181
+      name: https
+      nodePort: 30181
+  selector:
+    app.kubernetes.io/name: essential-viewer
+    app.kubernetes.io/component: backend
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: essential-import
+  namespace: essential
+  labels:
+    app.kubernetes.io/name: essential-import
+    app.kubernetes.io/component: backend
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+      nodePort: 31080
+    - port: 8181
+      targetPort: 8181
+      name: https
+      nodePort: 31181
+  selector:
+    app.kubernetes.io/name: essential-import
+    app.kubernetes.io/component: backend
